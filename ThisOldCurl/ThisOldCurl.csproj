@@ -42,7 +42,6 @@
     <Compile Include="Source\EasyCurl\Control.cs" />
     <Compile Include="Source\EasyCurl\Events.cs" />
     <Compile Include="Source\EasyCurl\GetInfo.cs" />
-    <Compile Include="Source\EasyCurl\Lifecycle.cs" />
     <Compile Include="Source\EasyCurl\SetOpt.cs" />
     <Compile Include="Source\EasyCurl\Util.cs" />
     <Compile Include="Source\LibCurl\Curl.cs" />

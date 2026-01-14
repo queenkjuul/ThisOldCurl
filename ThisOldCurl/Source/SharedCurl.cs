@@ -33,6 +33,9 @@ namespace ThisOldCurl
 
         public SharedCurl()
         {
+            if (!Curl.initialized)
+                Curl.GlobalInit();
+            Curl.RegisterForDisposal(this);
             curlsh = Curl.curl_share_init();
             if (curlsh == IntPtr.Zero)
                 throw new InvalidOperationException("[libcurl] [ERROR] curl_share_init failed");

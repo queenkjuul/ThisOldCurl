@@ -74,6 +74,9 @@ namespace ThisOldCurl
 
         public MultiCurl()
         {
+            if (!Curl.initialized)
+                Curl.GlobalInit();
+            Curl.RegisterForDisposal(this);
             this.multi = Curl.curl_multi_init();
             if (this.multi == IntPtr.Zero)
                 throw new ExternalException("[libcurl] curl_multi_init failed");
