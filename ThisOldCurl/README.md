@@ -30,10 +30,9 @@ Oh yeah, this is hard-coded as 32-bit, as you might expect for something targeti
 
 ### Modern Visual Studio (NuGet)
 
-_Coming Soon_
+Installing from the NuGet repo is coming soon.
 
-In the meantime, if you want (and it is handy) - clone the repo,
-run `nuget pack ThisOldCurl.nuspec` and then install the resulting `nupkg` file. The NuPkg is set up to automatically copy all dependencies to the output (including cacert.pem) - set and forget.
+In the meantime, download the nupkg from the Releases page and install it. It'll take care of copying all dependencies to your project output - set and forget. You can override cacert.pem by providing your own path to EasyCurl.
 
 ### Vintage Visual Studio (for the aficionados)
 
