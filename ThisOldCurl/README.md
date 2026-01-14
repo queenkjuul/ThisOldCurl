@@ -26,9 +26,24 @@ Oh yeah, this is hard-coded as 32-bit, as you might expect for something targeti
 
 †specifically, [OpenSSL 1.0.2u](https://github.com/queenkjuul/openssl-1.0.2u-win32), LibSSH2 1.4.2, zlib 1.2.3, and [libcurl 7.42.1](./Source/curl-7.42.1)
 
-## Usage
+## Installation
+
+### Modern Visual Studio (NuGet)
+
+_Coming Soon_
+
+In the meantime, if you want (and it is handy) - clone the repo,
+run `nuget pack ThisOldCurl.nuspec` and then install the resulting `nupkg` file. The NuPkg is set up to automatically copy all dependencies to the output (including cacert.pem) - set and forget.
+
+### Vintage Visual Studio (for the aficionados)
+
+Easiest thing to do is copy all of the DLL files from the release into the root directory of your project first. Then, in Visual Studio, right-click the project and do Add > Existing Item, and add them all to the root of the project as well. Then, for each file, set "Copy to Output" to "Copy Always" in the file properties (bottom right).
+
+## Examples
 
 See [`./SampleApplication`](./SampleApplication/) for concrete examples.
+
+## Usage
 
 _Choose Your Difficulty!_
 
