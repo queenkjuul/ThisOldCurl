@@ -42,7 +42,6 @@
     <Compile Include="Source\EasyCurl\Control.cs" />
     <Compile Include="Source\EasyCurl\Events.cs" />
     <Compile Include="Source\EasyCurl\GetInfo.cs" />
-    <Compile Include="Source\EasyCurl\Lifecycle.cs" />
     <Compile Include="Source\EasyCurl\SetOpt.cs" />
     <Compile Include="Source\EasyCurl\Util.cs" />
     <Compile Include="Source\LibCurl\Curl.cs" />
@@ -84,7 +83,7 @@
     <None Include="Snippets\curlcallback.snippet" />
     <None Include="Snippets\curldll.snippet" />
     <None Include="Images\ThisOldCurl.svg" />
-    <None Include="README.md" />
+    <None Include="README.md" Pack="true" PackagePath="\" />
     <None Include="Source\curl-7.42.1\acinclude.m4" />
     <None Include="Source\curl-7.42.1\aclocal.m4" />
     <None Include="Source\curl-7.42.1\buildconf" />

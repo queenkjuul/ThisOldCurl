@@ -173,6 +173,16 @@ namespace ThisOldCurl.LibCurl
         CURL_MAX_HTTP_HEADER = 100 * 1024
     }
 
+    [Flags]
+    public enum CurlGlobalFlags : int
+    {
+        NOTHING = 0,
+        SSL = 1 << 0,
+        WIN32 = 1 << 1,
+        ALL = SSL | WIN32,
+        DEFAULT = ALL
+    }
+
 
     /// <summary>
     /// callback to handle writing data during a transfer
@@ -260,7 +270,48 @@ namespace ThisOldCurl.LibCurl
     public static partial class Curl
     {
         internal const string CURLDLL = "libcurl.dll";
-        public static CURLversion CURLVERSION_NOW = CURLversion.CURLVERSION_FOURTH;
+        public readonly static CURLversion CURLVERSION_NOW = CURLversion.CURLVERSION_FOURTH;
+        public static CurlGlobalFlags flags = CurlGlobalFlags.DEFAULT;
+        internal static bool initialized = false;
+        private static object initLock = new object();
+        private static object handleLock = new object();
+        private static List<IDisposable> handles = new List<IDisposable>(); // EasyCurl | MultiCurl
+
+        public static CURLcode GlobalInit()
+        {
+            lock(initLock)
+            {
+                if (initialized)
+                    return CURLcode.CURLE_OK;
+                CURLcode result = curl_global_init((int)flags);
+                if (result != CURLcode.CURLE_OK)
+                    throw new ExternalException(
+                        "[libcurl] [ERROR] libcurl global init failed");
+
+                initialized = true;
+                AppDomain.CurrentDomain.ProcessExit +=
+                    new EventHandler(delegate(object sender, EventArgs e)
+                    {
+                        foreach (IDisposable handle in handles)
+                        {
+                            try { handle.Dispose(); }
+                            catch { }
+                        }
+                        curl_global_cleanup();
+                        handles.Clear();
+                    });
+                return result;
+            }
+        }
+
+        public static void RegisterForDisposal(IDisposable handle)
+        {
+            lock (handleLock)
+            {
+                if (!handles.Contains(handle))
+                    handles.Add(handle);
+            }
+        }
 
         /// <summary>
         /// curl_global_init() should be invoked exactly once for each application that
